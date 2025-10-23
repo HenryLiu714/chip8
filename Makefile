@@ -1,26 +1,27 @@
-# Compiler and flags
-CXX := g++
-CXXFLAGS := -Wall -Wextra -std=c++17 -I./src $(shell sdl2-config --cflags)
-LDFLAGS := $(shell sdl2-config --libs)
+CXX = g++
+CXXFLAGS = -Wall -Wextra -O2 -Iinclude
+LDFLAGS = $(shell sdl2-config --libs)
 
-# Sources and objects
-SRC := src/main.cpp src/chip8.cpp
-OBJ := $(SRC:.cpp=.o)
+# Folders
+SRC_DIR = src
+BUILD_DIR = build
+TARGET = chip_emulator
 
-# Output binary
-TARGET := chip8_emulator.exe
+# Files
+SRC = $(wildcard $(SRC_DIR)/*.cpp)
+OBJ = $(patsubst $(SRC_DIR)/%.cpp,$(BUILD_DIR)/%.o,$(SRC))
 
-# Default rule
 all: $(TARGET)
 
-# Link
+# build target
 $(TARGET): $(OBJ)
-	$(CXX) $(OBJ) -o $(TARGET) $(LDFLAGS)
+	$(CXX) $(CXXFLAGS) -o $@ $^ $(LDFLAGS)
 
-# Compile .cpp → .o
-src/%.o: src/%.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+	@mkdir -p $(BUILD_DIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
-# Clean
 clean:
-	rm -f $(OBJ) $(TARGET)
+	rm -rf $(BUILD_DIR) $(TARGET)
+
+.PHONY: all clean
