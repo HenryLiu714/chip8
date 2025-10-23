@@ -9,7 +9,11 @@
 int main() {
     Display display = Display();
 
-    std::array<uint8_t, 64*32> arr;
+    std::array<bool, 64*32> arr = {0};
+
+    for (int i = 0; i < 32 * 64; i+=4) {
+        arr[i] = 1;
+    }
 
     display.draw(arr);
 
