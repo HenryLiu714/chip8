@@ -7,5 +7,5 @@
 
 class IOHandler {
     public:
-        IOHandler(S)
+        IOHandler();
 };
