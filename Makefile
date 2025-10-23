@@ -8,7 +8,7 @@ SRC := src/main.cpp src/chip8.cpp
 OBJ := $(SRC:.cpp=.o)
 
 # Output binary
-TARGET := chip8_emulator
+TARGET := chip8_emulator.exe
 
 # Default rule
 all: $(TARGET)
